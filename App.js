@@ -1,6 +1,9 @@
 const express = require('express');
 const homeRoute = require('./src/routes/homeRoutes');
 const userRoute = require('./src/routes/userRoutes');
+const tokenRoute = require('./src/routes/tokenRoutes');
+const fileRoute = require('./src/routes/fileRoutes');
+
 require('./src/database');
 
 class App {
@@ -18,6 +21,8 @@ class App {
   routes() {
     this.app.use('/', homeRoute);
     this.app.use('/', userRoute);
+    this.app.use('/', tokenRoute);
+    this.app.use('/', fileRoute);
   }
 }
 

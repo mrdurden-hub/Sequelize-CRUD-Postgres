@@ -16,7 +16,7 @@ class UserController {
   // Find all users
   async findAll(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({ attributes: ['id', 'nome', 'sobrenome', 'email'] });
       res.json(users);
     } catch (e) {
       return res.status(400).json({
@@ -28,8 +28,13 @@ class UserController {
   // Find one user by primary key
   async findOne(req, res) {
     try {
-      const users = await User.findByPk(req.params.id);
-      res.json(users);
+      const user = await User.findByPk(req.params.id);
+      const {
+        id, nome, sobrenome, email,
+      } = user;
+      res.json({
+        id, nome, sobrenome, email,
+      });
     } catch (e) {
       return res.status(400).json({
         error: 'Sorry, something is wrong', e,
@@ -39,14 +44,8 @@ class UserController {
 
   // Update one user by primary key
   async updateOne(req, res) {
-    if (!req.params.id) {
-      return res.status(400).json({
-        error: 'Missing params',
-      });
-    }
-
     try {
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(400).json({
@@ -65,14 +64,8 @@ class UserController {
 
   // Delete one user by primary key
   async deleteOne(req, res) {
-    if (!req.params.id) {
-      return res.status(400).json({
-        error: 'Missing params',
-      });
-    }
-
     try {
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(400).json({

@@ -1,11 +1,29 @@
 module.exports = {
-  extends: 'airbnb-base',
+  env: {
+    browser: true,
+    es2021: true,
+    jest: true,
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  plugins: ['react'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
-    'no-console': 'off',
-    'class-methods-use-this': 'off',
-    'consistent-return': 'off',
-    'no-param-reassign': 'off',
-    'no-unused-expressions': 'off',
-    camelcase: 'off',
+    'react/react-in-jsx-scope': 'off',
   },
 };
